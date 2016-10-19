@@ -1,0 +1,5 @@
+﻿  Bank.cpp
+d:\mshtoda\laptev_21\laptev_21\bank.cpp(82): warning C4018: '<': signed/unsigned mismatch
+d:\mshtoda\laptev_21\laptev_21\bank.cpp(92): warning C4018: '<': signed/unsigned mismatch
+d:\mshtoda\laptev_21\laptev_21\bank.cpp(102): warning C4018: '<': signed/unsigned mismatch
+  laptev_21.vcxproj -> D:\MShtoda\laptev_21\Debug\laptev_21.exe
