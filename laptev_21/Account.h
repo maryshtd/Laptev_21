@@ -18,4 +18,6 @@ public:
 	std::string getdate();
 	double getamount();
 	double getpercent();
+	bool operator ==(int x);
+	bool operator ==(std::string x);
 };

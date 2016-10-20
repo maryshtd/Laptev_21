@@ -43,9 +43,9 @@ void Bank::AddAccount(const Account a)
 	{
 	char buff[1000];
 	sprintf_s(buff, 100,
-			"INSERT INTO Accounts(name,date,amount,perrcent) VALUES ('%s','%s',%.2f,%.2f)",
+			"INSERT INTO Accounts(name,date,amount,perrcent) VALUES ('%s','%s',%.0f,%.0f)",
 			a.name.c_str(), a.date.c_str(), a.amount, a.percent);
-	cout << buff << endl;
+	
 	SACommand cmd(&con, buff);
 	/*SACommand cmd(&con, "INSERT INTO Accounts (name,date,amount,perrcent) VALUES (:1,:2,:3,:4)");
 	cmd.Param(1).setAsString() = "q";
@@ -79,32 +79,69 @@ void Bank::DelAccount(int n) //удаление аккаунта по индексу
 }
 void Bank::FindByNum(int num)
 {
-	for (int i = 0; i<v.size(); i++)
-	{
-		if (v[i].num == num)
-		{
-			std::cout << v[i] << endl;
-		}
-	}
+	//for (int i = 0; i<v.size(); i++) //вариант 1
+	//{
+	//	if (v[i].num == num)
+	//	{
+	//		std::cout << v[i] << endl;
+	//	}
+	//}
+
+	auto p = std::find(v.begin(),v.end(),num); //вариант 2
+	if (p == v.end())
+		cout << "Account was not found" << endl;
+	else
+		cout << *p;
+
 }
 void Bank::FindByName(std::string name)
 {
-	for (int i = 0; i<v.size(); i++)
+	/*for (int i = 0; i<v.size(); i++)
 	{
 		if (v[i].name == name)
 		{
 			std::cout << v[i] << endl;
 		}
+	}*/
+
+	auto p = v.begin();
+
+	while (p != v.end())
+	{
+		p = std::find(p, v.end(), name);
+		if (p == v.end())
+		{
+			cout << "Account was not found" << endl;
+			break;
+		}
+		else
+			cout << *p << endl;
+		p++;
 	}
 }
-void Bank::FindByDate(std::string date)
+void Bank::FindByDate(std::string dateX)
 {
-	for (int i = 0; i<v.size(); i++)
+	/*for (int i = 0; i<v.size(); i++)
 	{
 		if (v[i].date == date)
 		{
 			std::cout << v[i] << endl;
 		}
+	}*/
+
+	FindDate = dateX;
+	auto p = v.begin();;
+	while (p != v.end())
+	{
+		p = std::find_if(p, v.end(), Date);
+		if (p == v.end())
+		{
+			cout << "Account was not found" << endl;
+			break;
+		}
+		else
+			cout << *p << endl;
+		p++;
 	}
 }
 
@@ -118,4 +155,11 @@ void Bank::Display()
 	std::ostream_iterator<Account> output(cout, "\n"); //вариант 2. ostream_iterator - поток вывода из вектора
 	std::copy(v.begin(), v.end(),output);
 
+}
+
+std::string Bank::FindDate = "";
+
+bool Date(const Account &x)
+{
+	return (x.date == Bank::FindDate);
 }

@@ -51,3 +51,13 @@ double Account::getpercent()
 {
 	return percent;
 }
+
+bool Account::operator ==(int x)
+{
+	return (x == this->num);
+}
+
+bool Account::operator ==(std::string x)
+{
+	return (x == this->name);
+}
